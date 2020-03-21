@@ -1,0 +1,11 @@
+{
+  "name": "alexvenga/otushw2002",
+  "description": "description_text",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alexey Bubnov",
+      "email": "email@example.com"
+    }
+  ]
+}
