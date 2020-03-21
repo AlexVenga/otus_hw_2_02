@@ -2,15 +2,34 @@
 
 require_once 'vendor/autoload.php';
 
-//use AlexVenga\BracketsMathematicalExpressions;
-//use AlexVenga\CheckBrackets;
+use AlexVenga\BracketsMathematicalExpressions;
+use AlexVenga\CheckBrackets;
 
 
-$filename = readline('Enter mathematical text file: ');
+try {
 
-$stringFromFile = @file_get_contents('data/' . $filename);
+    $filename = readline('Enter mathematical text file: ');
 
+    $stringFromFile = @file_get_contents('data/' . $filename);
 
-echo $filename . PHP_EOL;
+    if (!$stringFromFile) {
+        die("Can`t load file \"" . '/data/' . $filename . "\"" . PHP_EOL);
+    }
 
-echo PHP_EOL . 'END' . PHP_EOL;
+    $data = new BracketsMathematicalExpressions($stringFromFile);
+
+    $calculator = new CheckBrackets();
+
+    if ($calculator->checkBracketsInString($data)) {
+        echo 'Mathematical string OK' . PHP_EOL;
+    } else {
+        echo 'Mathematical string ERROR' . PHP_EOL;
+    }
+
+} catch (InvalidArgumentException $ex) {
+    echo "InvalidArgumentException: " . $ex->getMessage();
+    die(PHP_EOL);
+} catch (Exception $ex) {
+    echo "Exception: " . $ex->getMessage();
+    die(PHP_EOL);
+}
